@@ -1,0 +1,193 @@
+:root {
+    --bg-pure: #000000;
+    --uv-glow: #8b3dff;
+    --spark-white: #e9e4ff;
+    --text-muted: #8a7c9e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100vw;
+    /* dvh soluciona el problema de la barra de navegación en celulares */
+    height: 100dvh; 
+    background-color: var(--bg-pure);
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    color: var(--spark-white);
+    -webkit-font-smoothing: antialiased;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    filter: contrast(1.2) brightness(0.9);
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.85) 100%);
+    transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s;
+}
+
+.overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.05);
+    visibility: hidden;
+    transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s 1.5s; 
+}
+
+.intro-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+.surreal-title {
+    font-family: 'Cinzel', serif;
+    font-size: 3.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--spark-white);
+    text-shadow: 0 0 20px var(--uv-glow), 0 0 40px var(--uv-glow);
+}
+
+.subtitle {
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 300;
+}
+
+.magnetic-btn {
+    background: transparent;
+    color: var(--spark-white);
+    border: 1px solid rgba(139, 61, 255, 0.3);
+    padding: 1.2rem 3rem;
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    border-radius: 2px;
+}
+
+.magnetic-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, var(--uv-glow), transparent);
+    transition: left 0.5s ease;
+    z-index: 1;
+    mix-blend-mode: screen;
+}
+
+.magnetic-btn:hover, .magnetic-btn:active {
+    border-color: var(--uv-glow);
+    box-shadow: 0 0 15px rgba(139, 61, 255, 0.4);
+}
+
+.magnetic-btn:hover::before, .magnetic-btn:active::before {
+    left: 100%;
+}
+
+.magnetic-btn span {
+    position: relative;
+    z-index: 2;
+}
+
+.magnetic-btn.minimal {
+    border: none;
+    border-bottom: 1px solid var(--uv-glow);
+    padding: 0.5rem 1rem;
+    margin-top: 2rem;
+}
+
+/* --- PERGAMINO OSCURO --- */
+.letter-content {
+    max-width: 680px;
+    width: 90%;
+    max-height: 85dvh;
+    overflow-y: auto; /* Permite scroll en celulares si es muy largo */
+    text-align: center;
+    position: relative;
+    
+    background: linear-gradient(135deg, #07030e 0%, #110822 50%, #07030e 100%);
+    padding: 4.5rem 3.5rem;
+    
+    border-radius: 4px 30px 4px 30px;
+    border-top: 1px solid rgba(139, 61, 255, 0.4);
+    border-bottom: 1px solid rgba(139, 61, 255, 0.4);
+    
+    box-shadow: 
+        inset 0 0 50px rgba(0,0,0,0.9), 
+        inset 0 0 15px rgba(139, 61, 255, 0.15),
+        0 25px 70px rgba(0,0,0,1),
+        0 0 30px rgba(139, 61, 255, 0.1);
+}
+
+/* Ocultar barra de scroll estéticamente */
+.letter-content::-webkit-scrollbar {
+    width: 4px;
+}
+.letter-content::-webkit-scrollbar-thumb {
+    background: var(--uv-glow);
+    border-radius: 4px;
+}
+
+.letter-content::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.08"/></svg>');
+    pointer-events: none;
+    border-radius: inherit;
+    mix-blend-mode: screen;
+}
+
+#typed-text {
+    font-size: 1.2rem;
+    line-height: 2.2;
+    color: #e4dcff;
+    min-height: 150px;
+    text-shadow: 1px 1px 10px rgba(0,0,0,0.8);
+    font-family: 'Cinzel', serif;
+    letter-spacing: 1px;
+}
+
+/* Ajustes específicos para móviles */
+@media (max-width: 768px) {
+    .surreal-title { font-size: 2.2rem; }
+    .subtitle { font-size: 0.9rem; padding: 0 1rem; }
+    .magnetic-btn { padding: 1rem 2rem; }
+    
+    .letter-content { 
+        padding: 3rem 1.5rem; 
+        border-radius: 2px 20px 2px 20px;
+    }
+    
+    #typed-text { 
+        font-size: 1.05rem; 
+        line-height: 1.9;
+    }
+}

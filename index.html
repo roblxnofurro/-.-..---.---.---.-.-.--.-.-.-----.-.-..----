@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>-. .. --.-- .- / -.-. .- .-. .- -- . .-.. ---</title>
+    <meta name="theme-color" content="#07030e">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <canvas id="coreCanvas"></canvas>
+
+    <div id="ui-layer" class="overlay">
+        <div class="intro-content">
+            <h1 class="surreal-title">-. .. --.-- .- / -.-. .- .-. .- -- . .-.. ---</h1>
+            <p class="subtitle">Recomendación: tener el sonido activado o, de preferencia, usar audífonos.</p>
+            <button id="btn-ignite" class="magnetic-btn">
+                <span>haz click, mamaster</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="letter-layer" class="overlay hidden">
+        <div class="letter-content">
+            <div class="wax-seal"></div>
+            <p id="typed-text"></p>
+            <button id="btn-reset" class="magnetic-btn minimal">
+                <span>Regresar</span>
+            </button>
+        </div>
+    </div>
+
+    <audio id="bgm" loop preload="auto">
+        <!-- Asegúrate de que el archivo se llame music.mp3 o cambia este nombre -->
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
