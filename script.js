@@ -8,8 +8,8 @@ const TIMING_BREAK_WORD = 11000; // Tiempo en que se disuelve la palabra
 const TIMING_SHOW_LETTER = 11000; // Tiempo en que aparece el pergamino
 const TYPING_SPEED = 75;         // Velocidad al escribir la carta
 
-const FINAL_TEXT = "TE QUIERO";
-const LETTER_TEXT = "Mi niña caramelo,\n\nEntre millones de unos y ceros, en la entropía del sistema, mis coordenadas siempre apuntarán a ti.\n\nEl unico caramelo que me gusta\n\nGracias por ser mi magia.";
+const FINAL_TEXT = "PENE";
+const LETTER_TEXT = "no deberias estar aqui.";
 
 const canvas = document.getElementById('coreCanvas');
 const ctx = canvas.getContext('2d');
