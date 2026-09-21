@@ -4,41 +4,146 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>-. .. --.-- .- / -.-. .- .-. .- -- . .-.. ---</title>
-    <meta name="theme-color" content="#07030e">
-    
+    <meta name="theme-color" content="#050507">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Sprite de íconos, reutilizado por la nav, el botón y las máscaras flotantes -->
+    <svg style="display:none" aria-hidden="true">
+        <symbol id="icon-mask" viewBox="0 0 40 40">
+            <path d="M9 13 L4 4 L15 9 Z" />
+            <path d="M31 13 L36 4 L25 9 Z" />
+            <path d="M20 6 C11 6 6 13 6 21 C6 30 12 36 20 36 C28 36 34 30 34 21 C34 13 29 6 20 6 Z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="13.5" cy="20" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="13.5" cy="20" r="1.1" fill="currentColor"/>
+            <circle cx="26.5" cy="20" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="26.5" cy="20" r="1.1" fill="currentColor"/>
+            <path d="M15 29 Q20 32 25 29" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="icon-rune-eye" viewBox="0 0 40 40">
+            <path d="M20 5 L35 31 L5 31 Z" fill="none" stroke="currentColor" stroke-width="1.4"/>
+            <circle cx="20" cy="23" r="4.2" fill="none" stroke="currentColor" stroke-width="1.3"/>
+            <circle cx="20" cy="23" r="1.1" fill="currentColor"/>
+        </symbol>
+        <symbol id="icon-chevron" viewBox="0 0 24 24">
+            <path d="M4 8 L12 16 L20 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+    </svg>
+
+    <!-- ==========================================================
+         FONDO PERMANENTE: la ilustración vive fuera de #ui-layer,
+         así sigue visible durante toda la canción y la carta.
+    ========================================================== -->
+    <div class="scene-bg" aria-hidden="true"></div>
+    <div class="stage-veil" aria-hidden="true"></div>
+
     <canvas id="coreCanvas"></canvas>
 
+    <!-- Capa de hadas: se llena desde script.js al pulsar el botón -->
+    <div id="fairy-layer" class="fairy-layer" aria-hidden="true"></div>
+
+    <!-- Marco fijo que enmarca toda la pantalla, visible en todo momento -->
+    <div class="page-frame" aria-hidden="true">
+        <span class="page-frame-corner pfc--tl"></span>
+        <span class="page-frame-corner pfc--tr"></span>
+        <span class="page-frame-corner pfc--bl"></span>
+        <span class="page-frame-corner pfc--br"></span>
+        <span class="page-frame-dot pfd--tl"></span>
+        <span class="page-frame-dot pfd--tr"></span>
+        <span class="page-frame-dot pfd--bl"></span>
+        <span class="page-frame-dot pfd--br"></span>
+    </div>
+
     <div id="ui-layer" class="overlay">
+
+        <!-- Decoración que SÓLO existe en la pantalla de inicio -->
+        <div class="scene-fg" aria-hidden="true">
+            <div class="moon-backdrop">
+                <div class="moon-halo"></div>
+                <img src="Luna_Artwork_MM_3D.png" alt="" class="moon-backdrop-img">
+            </div>
+
+            <div class="floating-masks">
+                <svg class="fmask fmask--1"><use href="#icon-mask"/></svg>
+                <svg class="fmask fmask--2"><use href="#icon-mask"/></svg>
+            </div>
+            <div class="fireflies">
+                <span class="firefly firefly--1"></span>
+                <span class="firefly firefly--2"></span>
+                <span class="firefly firefly--3"></span>
+            </div>
+            <div class="rune-decor">
+                <svg class="rune rune--1"><use href="#icon-rune-eye"/></svg>
+                <span class="frag frag--1"></span>
+                <span class="frag frag--2"></span>
+                <span class="frag frag--3"></span>
+            </div>
+        </div>
+
         <div class="intro-content">
+            <svg class="rune-eye" aria-hidden="true"><use href="#icon-rune-eye"/></svg>
             <h1 class="surreal-title">-. .. --.-- .- / -.-. .- .-. .- -- . .-.. ---</h1>
-            <p class="subtitle">Recomendación: tener el sonido activado o, de preferencia, usar audífonos.</p>
-            <button id="btn-ignite" class="magnetic-btn">
-                <span>haz click, mamaster</span>
+            <p class="subtitle">Recomendación: activa el sonido o, de preferencia, usa audífonos.
+Toca la luna para escuchar “Song of Healing” cuando lo necesites.
+Toca el botón para leer la profecía.</p>
+            <div class="intro-ornament" aria-hidden="true"><span></span><span></span><span></span></div>
+
+            <button id="btn-ignite" class="mystic-btn">
+                <span class="corner corner--tl"></span>
+                <span class="corner corner--tr"></span>
+                <span class="corner corner--bl"></span>
+                <span class="corner corner--br"></span>
+                <span class="btn-diamond btn-diamond--l" aria-hidden="true"></span>
+                <svg class="btn-icon"><use href="#icon-mask"/></svg>
+                <span>profecía</span>
+                <span class="btn-diamond btn-diamond--r" aria-hidden="true"></span>
+                <span class="spark spark--1"></span>
+                <span class="spark spark--2"></span>
+                <span class="spark spark--3"></span>
+                <span class="spark spark--4"></span>
+                <span class="spark spark--5"></span>
+                <span class="spark spark--6"></span>
             </button>
+
+            <div class="scroll-hint" aria-hidden="true">
+                <svg><use href="#icon-chevron"/></svg>
+            </div>
         </div>
     </div>
 
     <div id="letter-layer" class="overlay hidden">
         <div class="letter-content">
-            <div class="wax-seal"></div>
+            <div class="wax-seal" aria-hidden="true">
+                <div class="seal-eye seal-eye--l"></div>
+                <div class="seal-eye seal-eye--r"></div>
+                <div class="seal-eye seal-eye--c"></div>
+            </div>
             <p id="typed-text"></p>
             <button id="btn-reset" class="magnetic-btn minimal">
-                <span>Regresar</span>
+                <span>tocar de nuevo</span>
             </button>
         </div>
     </div>
 
-    <audio id="bgm" loop preload="auto">
-        <!-- Asegúrate de que el archivo se llame music.mp3 o cambia este nombre -->
+    <!-- Ambiente: suena en bucle mientras NO se ha pulsado el botón -->
+    <audio id="ambient" loop preload="auto">
         <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Golpe de inicio: suena una sola vez al pulsar el botón -->
+    <audio id="sfx-start" preload="auto">
+        <source src="start.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Canción principal de la secuencia -->
+    <audio id="bgm" loop preload="auto">
+        <source src="please, remember me.mp3" type="audio/mpeg">
     </audio>
 
     <script src="script.js"></script>
